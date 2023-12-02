@@ -1,5 +1,5 @@
 # Game-analysis-by-MATLAB
-use MATLAB to calculate and simulate the game, including Stackelberg game, Evolutionary game.
+use MATLAB to calculate and simulate the game, including the Stackelberg game and evolutionary game.
 %% 斯塔克伯格博弈（内容包括：斯塔克伯格博弈的模型求解计算，海瑟矩阵，参数影响的二维和三维图）
 %%考虑保险理赔模式和政府补贴的再制造产品市场优化策略-斯塔克博格博弈模型
 %模型R：
@@ -47,7 +47,7 @@ s=0,z=0;
 wRr=(q+p*cr+s*z-p*(1-s)*z)/(2*p)
 wRr =((2*p)/5 + 1/2)/(2*p)
 
-figure('NumberTitle', 'off', 'Name', 's=1,z=1;，s=0,z=1，s=0,z=0');
+figure('NumberTitle', 'off', 'Name', 's=1,z=1，s=0,z=1，s=0,z=0');
 p=0.1:0.01:0.8;
 
 wRr = ((2*p)/5 + 3/5)./(2*p)
@@ -83,7 +83,7 @@ s=0,z=0;
 PiRr=(d*(1-b)*(q-p*cr+s*z+p*(1-s)*z)^2)/(8*q)
 PiRr =225*((2*p)/5 - 1/2)^2
 
-figure('NumberTitle', 'off', 'Name', 's=1,z=1;，s=0,z=1，s=0,z=0');
+figure('NumberTitle', 'off', 'Name', 's=1,z=1，s=0,z=1，s=0,z=0');
 p=0.1:0.02:0.8;
 
 PiRr =112.5.*((2.*p)/5 - 3/5).^2
@@ -121,7 +121,7 @@ w2=(a-(1-b)*(2*P*(1-q)-p*(q*cn+2*cr)-s*z+2*p*(1-s)*z))/(3*p*(1-b))
 n=((1-b)*(2*P*(1+2*q)-p*(q*cn-cr)+5*s*z-p*(1-s)*z)-a)/(6*P*(1-b))
   n =(5*((37*P)/10 - 11/20))/(27*P)
  
-figure('NumberTitle', 'off', 'Name', 's=1,z=1;，s=0,z=1，s=0,z=0');
+figure('NumberTitle', 'off', 'Name', 's=1,z=1，s=0,z=1，s=0,z=0');
   [P,p]=meshgrid(0.2:0.01:1.1,0.2:0.01:0.8); 
   w1 =(20*((27*p)./25 - 2*P + 191/100))./(27*p)
   meshc(P,p,w1);title('meshc(P,p,w1)')   
@@ -132,7 +132,7 @@ zlabel('w1')
 grid on
 hold off
 
-figure('NumberTitle', 'off', 'Name', 's=1,z=1;，s=0,z=1，s=0,z=0');
+figure('NumberTitle', 'off', 'Name', 's=1,z=1,s=0,z=1，s=0,z=0');
   [P,p]=meshgrid(0.2:0.01:1.1,0.2:0.01:0.8); 
   w2 =(10*((27*p)./25 - P + 109/100))./(27*p)
   meshc(P,p,w2);title('meshc(P,p,w2)')   
@@ -143,7 +143,7 @@ zlabel('w2')
 grid on
 hold off
 
-figure('NumberTitle', 'off', 'Name', 's=1,z=1;，s=0,z=1，s=0,z=0');
+figure('NumberTitle', 'off', 'Name', 's=1,z=1，s=0,z=1，s=0,z=0');
   [cr,p]=meshgrid(0:0.01:1.1,0.2:0.01:0.8); 
   n =(5*p.*(cr - 2/5))./24 + 241/432
   meshc(cr,p,n);title('meshc(cr,p,n)')   
