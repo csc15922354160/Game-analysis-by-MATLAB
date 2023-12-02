@@ -1,12 +1,12 @@
 # Game-analysis-by-MATLAB
 use MATLAB to calculate and simulate the game, including the Stackelberg game and evolutionary game.
 %% 斯塔克伯格博弈（内容包括：斯塔克伯格博弈的模型求解计算，海瑟矩阵，参数影响的二维和三维图）
-%%考虑保险理赔模式和政府补贴的再制造产品市场优化策略-斯塔克博格博弈模型
-%模型R：
-%决策变量：再制造商：再制造零部件批发价格wRr;保险公司：保费费率折扣nR
-%利润函数，再制造商：PiRr=((wRr-cr+(1-s)*z)*ERr;保险公司：PiRb=(nR*P-wRr)*ERr+nR*P*(DRr-ERr);
-%保险产品规模：DRr=(d*(1-b)*(q-nR*P+s*z))/q ; 再制造零部件的期望需求：ERr=p*DRr
-%&结论1：
+%% 目标论文：《考虑保险理赔模式和政府补贴的再制造产品市场优化策略-斯塔克博格博弈模型》
+% 模型R：求解结果
+% 决策变量：再制造商：再制造零部件批发价格wRr;保险公司：保费费率折扣nR
+% 利润函数，再制造商：PiRr=((wRr-cr+(1-s)*z)*ERr;保险公司：PiRb=(nR*P-wRr)*ERr+nR*P*(DRr-ERr);
+% 保险产品规模：DRr=(d*(1-b)*(q-nR*P+s*z))/q ; 再制造零部件的期望需求：ERr=p*DRr
+%&-------------------------------------------------------------------------结论1：
 %第一步 根据上述定义参数
 syms wRr nR cr s z ERr P DRr d b q p
 %第二步 构建等式
@@ -31,7 +31,7 @@ disp('保险公司最优利润：'); pretty(simplify(PiRb_optimized));
 PiRr_optimized1 = subs(PiRr_optimized,wRr,sol_Rr );
 disp('再制造商最优利润：'); pretty(simplifyFraction(PiRr_optimized1));
 
-%% 
+%% ----------------------------------------------------------------------
 
 %%画图，下面的为二维参数影响图
 % R-1 p对wRr的影响  
@@ -49,17 +49,17 @@ wRr =((2*p)/5 + 1/2)/(2*p)
 
 figure('NumberTitle', 'off', 'Name', 's=1,z=1，s=0,z=1，s=0,z=0');
 p=0.1:0.01:0.8;
-
+%线1
 wRr = ((2*p)/5 + 3/5)./(2*p)
 plot(p,wRr, 'r.-')
-
 hold on
 
+%线2
 wRr =((3*p)/10 + 1/2)./(2*p)
 plot(p,wRr, 'r-')
-
 hold on
 
+%线3
 wRr =((2*p)/5 + 1/2)./(2*p)
 plot(p,wRr, 'b--')
 legend('w^R_r','w^CR_r','w^RR_r')
