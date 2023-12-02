@@ -1,0 +1,39 @@
+%斯塔克博格博弈代码（以《电动汽车动力电池制造商混合渠道回收模式选择与碳减排决策》为例）
+%3.1 MR回收模式（制造商与零售商共同回收）求解
+% 第一步：定义参数/变量
+syms w Cm a b p o pb k pr v pm pe e0 e E h  
+  %设定条件
+  assume(k > 2*v);
+assume(h - b*pe^2 > 0);
+% 第二步：利润函数
+Pim = (w-Cm)*(a-b*p)+(o-pb)*(k*pr-v*pm)+(o-pm)*(k*pm-v*pr)-pe*((e0-e)*(a-b*p)-E)-0.5*h*e^2;%制造商的利润函数，可变变量为w, pb, pm, e;
+Pir = (p-w)*(a-b*p)+(pb-pr)*(k*pr-v*pm); %零售商的利润函数，可变变量为p, pr;
+% 第三步：求解零售商的最优策略_r1
+   % 计算零售商海塞矩阵
+   Hr = hessian(Pir, [p, pr]);
+   % 显示零售商海塞矩阵
+   disp('零售商的海塞矩阵Hr为:'); disp(Hr);
+   % 求解最优策略/反应函数_r1
+   sol_r = solve(diff(Pir, p) == 0, diff(Pir, pr) == 0, p, pr);% Matlab的求导函数为diff()；解方程函数为solve()
+   % 显示结果_r1
+   disp('零售商的最优策略_r1为：'); disp([sol_r.p, sol_r.pr]);%
+% 第四步：将零售商的最优策略/反应函数代入到制造商的利润函数中
+Pim_optimized = subs(Pim, [p, pr], [sol_r.p, sol_r.pr]); % Matlab的替代函数为subs()
+% 第五步：求解制造商的最优策略_m1*
+   % 计算制造商海塞矩阵
+   Hm = hessian(Pim_optimized, [w, pb, pm, e]);
+   % 显示制造商海塞矩阵
+   disp('制造商的海塞矩阵Hm为:'); disp(Hm);
+   % 求解最优策略_m1*
+   sol_m = solve(diff(Pim_optimized, w) == 0, diff(Pim_optimized, pb) == 0, diff(Pim_optimized, pm) == 0, diff(Pim_optimized, e) == 0, w, pb, pm, e);
+   % 显示结果_m1*
+  disp('制造商的最优策略_m1*为：'); disp([sol_m.w, sol_m.pb, sol_m.pm, sol_m.e]);
+% 第六步：将制造商的最优策略代入到零售商的最优策略中
+sol_optimized = subs(sol_r, [w, pb, pm, e], [sol_m.w, sol_m.pb, sol_m.pm, sol_m.e])
+  % 显示结果_r*
+   disp('零售商的最优策略_r*为：'); disp([sol_optimized.p, sol_optimized.pr]);
+% 第七步：计算制造商和零售商的最优利润Pim*, Pir*
+Pim2 = subs(Pim_optimized, [w, pb, pm, e, p, pr], [sol_m.w, sol_m.pb, sol_m.pm, sol_m.e, sol_optimized.p, sol_optimized.pr])
+Pir2 = subs(Pir, [w, pb, pm, e, p, pr], [sol_m.w, sol_m.pb, sol_m.pm, sol_m.e, sol_optimized.p, sol_optimized.pr])
+disp('制造商的最优利润为:'); disp(simplify(Pim2));
+disp('零售商的最优利润为:'); disp(simplify(Pir2));
